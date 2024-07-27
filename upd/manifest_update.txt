@@ -1,0 +1,115 @@
+MANIFESTO DE ATUALIZAÇÃO
+
+Data : 27/07/2024
+Hora : 08:47:13
+Arquivo de atualização diferencial baseado em projeto gerado pelo Configurador
+Projeto : 000002
+Descrição : LOG DE ACESSO                                     
+Versão : 0001
+Release de referência : 12.1.2310 
+Responsável pelo Projeto: 000000 - Administrador
+Geração do Pacote: 000000 - Administrador
+-----------------------------
+Componentes do arquivo de atualização :
+
+------------
+SIX
+
+Operação:Inclusão ou Alteração
+Tabela : ZZL
+Ordem : 1
+
+
+------------
+SX2
+
+Operação:Inclusão ou Alteração
+Tabela : ZZL
+
+
+------------
+SX3
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_FILIAL
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_EMP   
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_FIL   
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_ID    
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_NAME  
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_AMB   
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_IP    
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_DATA  
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_HORA  
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_COMP  
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_ROTINA
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_MODULO
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_XNU   
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_DSEMAN
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_DATABA
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_MEMORI
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_ALIASD
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_NRECNO
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_NOPCME
+
+Operação:Inclusão ou Alteração
+Campo : ZZL_CFUNMN
+
+
+------------
+Helps (hlppack*.txt)
+
+Chave : ZZL_EMP   
+Chave : ZZL_FIL   
+Chave : ZZL_ID    
+Chave : ZZL_NAME  
+Chave : ZZL_AMB   
+Chave : ZZL_IP    
+Chave : ZZL_DATA  
+Chave : ZZL_HORA  
+Chave : ZZL_COMP  
+Chave : ZZL_ROTINA
+Chave : ZZL_MODULO
+Chave : ZZL_XNU   
+Chave : ZZL_DSEMAN
+Chave : ZZL_DATABA
+Chave : ZZL_MEMORI
+Chave : ZZL_ALIASD
+Chave : ZZL_NRECNO
+Chave : ZZL_NOPCME
+Chave : ZZL_CFUNMN

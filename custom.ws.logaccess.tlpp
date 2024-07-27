@@ -1,0 +1,131 @@
+#Include "Totvs.ch"
+#include 'tlpp-core.th'
+#include 'tlpp-rest.th'
+
+/*/{Protheus.doc} LOGACCESS
+    (long_description)
+    @autor user
+    @since 10/06/2024
+    @version version
+/*/
+Class LOGACCESS
+
+    public method New() as object
+    //path localhost:8080/rest/api/administration/consult/id/000000
+    @GET('/api/administration/consult/id/:id')
+    public method consult_id()
+
+EndClass
+
+/*/{Protheus.doc} New
+    (long_description)
+    @autor user
+    @since 10/06/2024
+    @version version
+/*/
+Method New() as object Class LOGACCESS
+Return Self
+
+/*/{Protheus.doc} consult_id
+    (long_description)
+    @autor user
+    @since 10/06/2024
+    @version version
+/*/
+Method consult_id() Class LOGACCESS
+
+    Local cAliasWS := GetNextAlias()
+    Local jResponse := JsonObject():New()
+    Local cUsrID := ''
+    Local oRegistro
+    Local xRest := oRest
+    Private jPath := xRest:getPathParamsRequest()
+
+    // Obtém o ID do usuário dos parâmetros da URL e assegura que seja uma string
+    cUsrID := Alltrim(jPath['id'])
+
+    BeginSql Alias cAliasWS
+        SELECT
+            ZZL_FILIAL as Branch,
+            ZZL_EMP as Company,
+            ZZL_FIL as Branch,
+            ZZL_ID as IDUsr,
+            ZZL_NAME as NameUsers,
+            ZZL_AMB as Environment,
+            ZZL_IP as Ip,
+            ZZL_COMP as Station,
+            ZZL_DATA as DataStation,
+            ZZL_HORA as HourStation,
+            ZZL_ROTINA as Routine,
+            ZZL_MODULO as Module,
+            ZZL_XNU as Menu,
+            ZZL_DSEMAN as Dayoftheweek,
+            ZZL_DATABA as DataSystem,
+            ZZL_MEMORI as ThreadMemor,
+            ZZL_ALIASD as cAlias,
+            ZZL_NRECNO as Recno,
+            CASE
+                WHEN ZZL_NOPCME = 2
+                    THEN 'VISUALIZAR'
+                WHEN ZZL_NOPCME = 3
+                    THEN 'INCLUIR'
+                WHEN ZZL_NOPCME = 4
+                    THEN 'ALTERAR'
+                WHEN ZZL_NOPCME = 5
+                    THEN 'EXCLUIR'
+                ELSE ''
+            END AS nOpc,
+            ZZL_CFUNMN as FunctionMenu,
+            ZZL.R_E_C_N_O_ AS LOGREC
+        FROM
+            %table:ZZL% ZZL
+        WHERE
+            ZZL.D_E_L_E_T_ <> '*'
+            AND ZZL_ID = %exp:cUsrID%
+        ORDER BY
+            LOGREC
+    EndSql
+
+    If (cAliasWS)->(EoF())
+        Self:SetStatus(500)
+        jResponse['errorId'] := 'ALL003'
+        jResponse['error'] := 'Registro(s) não encontrado(s)'
+        jResponse['solution'] := 'A consulta de registros não retornou nenhuma informação'
+    Else
+        jResponse['usuarios'] := {}
+        (cAliasWS)->(DbGoTop())
+
+        // Percorre os registros
+        While ! (cAliasWS)->(EoF())
+            oRegistro := JsonObject():New()
+            oRegistro['Branch'] := Alltrim((cAliasWS)->Branch)
+            oRegistro['Company'] := Alltrim((cAliasWS)->Company)
+            oRegistro['IDUsr'] := Alltrim((cAliasWS)->IDUsr)
+            oRegistro['NameUsers'] := Alltrim((cAliasWS)->NameUsers)
+            oRegistro['Environment'] := Alltrim((cAliasWS)->Environment)
+            oRegistro['Ip'] := Alltrim((cAliasWS)->Ip)
+            oRegistro['Station'] := Alltrim((cAliasWS)->Station)
+            oRegistro['DataStation'] := Alltrim((cAliasWS)->DataStation)
+            oRegistro['HourStation'] := Alltrim((cAliasWS)->HourStation)
+            oRegistro['Routine'] := Alltrim((cAliasWS)->Routine)
+            oRegistro['Module'] := Alltrim((cAliasWS)->Module)
+            oRegistro['Menu'] := Alltrim((cAliasWS)->Menu)
+            oRegistro['Dayoftheweek'] := Alltrim((cAliasWS)->Dayoftheweek)
+            oRegistro['DataSystem'] := Alltrim((cAliasWS)->DataSystem)
+            oRegistro['ThreadMemor'] := Alltrim((cAliasWS)->ThreadMemor)
+            oRegistro['Alias'] := Alltrim((cAliasWS)->cAlias)
+            oRegistro['Recno'] := (cAliasWS)->Recno
+            oRegistro['nOpc'] := (cAliasWS)->nOpc
+            oRegistro['FunctionMenu'] := Alltrim((cAliasWS)->FunctionMenu)
+            oRegistro['LOGREC'] := (cAliasWS)->LOGREC
+
+            aAdd(jResponse['usuarios'], oRegistro)
+
+            (cAliasWS)->(DbSkip())
+        EndDo
+    EndIf
+    (cAliasWS)->(DbCloseArea())
+
+    FreeObj(oRegistro)
+
+Return xRest:setResponse(jResponse)
