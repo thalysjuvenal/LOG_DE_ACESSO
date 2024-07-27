@@ -14,6 +14,10 @@ Todos os módulos do sistema ERP Protheus são monitorados por este projeto. As 
 
 > **Nota:** O sistema de logs registra apenas a ocorrência das ações (inclusão, alteração, exclusão e visualização). **Não são registrados detalhes específicos sobre quais campos foram preenchidos ou alterados durante essas ações.**
 
+## Gravação dos Registros no Banco de Dados
+
+Para gravar os registros no banco de dados, é necessário executar os utilitários **UPDDISTR** ou **UPDBATCH**. Os artefatos necessários para essa operação estão disponíveis no seguinte caminho: [Artefatos de Atualização](https://github.com/thalysjuvenal/LOG_DE_ACESSO/tree/main/upd).
+
 ### Documentação dos Códigos Fontes
 
 A documentação detalhada dos códigos fontes utilizados neste projeto está disponível nos seguintes links:
